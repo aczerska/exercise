@@ -204,6 +204,36 @@ public class MyLinkedList {
         return head;
     }
 
+    public static Node removeDuplicates(Node head) {
+        Node node = head;
+        Node nextNode;
+        Node before;
+        int value = node.data;
+        while (node != null) {
+            nextNode = node.next;
+            before = node;
+            while (nextNode != null) {
+                if (value == nextNode.data) {
+                    if (nextNode.next == null) {
+                        before.next = null;
+                        nextNode = null;
+                    } else {
+                        nextNode = nextNode.next;
+                        before.next = nextNode;
+                    }
+                } else {
+                    before = nextNode;
+                    nextNode = nextNode.next;
+                }
+            }
+            node = node.next;
+            if (node != null) {
+                value = node.data;
+            }
+        }
+        return head;
+    }
+
 
     public static void main(String[] args) {
 
@@ -242,12 +272,18 @@ public class MyLinkedList {
 
         MyLinkedList myLinkedList3 = new MyLinkedList();
         myLinkedList3.insertAtStart(5);
-        myLinkedList3.insertAtStart(2);
-        myLinkedList3.insertAtStart(7);
+        myLinkedList3.insertAtStart(5);
+        myLinkedList3.insertAtStart(4);
+        myLinkedList3.insertAtStart(3);
+        myLinkedList3.insertAtStart(3);
+        myLinkedList3.insertAtStart(3);
+        myLinkedList3.insertAtStart(6);
         myLinkedList3.insertAtStart(1);
         show(myLinkedList3.head);
         System.out.println();
-        show(selectionSort(myLinkedList3.head));
+        //show(selectionSort(myLinkedList3.head));
+        System.out.println();
+        show(removeDuplicates(myLinkedList3.head));
 
     }
 }
