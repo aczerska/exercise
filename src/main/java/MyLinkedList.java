@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class MyLinkedList {
 
@@ -234,6 +234,34 @@ public class MyLinkedList {
         return head;
     }
 
+    private static Node makeCycle(Node head) {
+        Node node = head;
+        Node nextNode = node.next;
+        while (nextNode.next != null) {
+            node = node.next;
+            nextNode = nextNode.next;
+        }
+
+        nextNode.next = node;
+
+        return head;
+    }
+
+    public static boolean hasCycle(Node head) {
+        Set<Node> set = new HashSet<>();
+        Node node = head;
+        while (node != null) {
+            if (set.add(node)) {
+                node = node.next;
+            } else {
+                System.out.println("list has a cycle");
+                return true;
+            }
+        }
+        System.out.println("list doesn't have a cycle");
+        return false;
+    }
+
 
     public static void main(String[] args) {
 
@@ -281,9 +309,18 @@ public class MyLinkedList {
         myLinkedList3.insertAtStart(1);
         show(myLinkedList3.head);
         System.out.println();
-        //show(selectionSort(myLinkedList3.head));
+        show(selectionSort(myLinkedList3.head));
         System.out.println();
         show(removeDuplicates(myLinkedList3.head));
+        System.out.println();
+        MyLinkedList myLinkedList4 = new MyLinkedList();
+        myLinkedList4.insertAtStart(5);
+        myLinkedList4.insertAtStart(3);
+        myLinkedList4.insertAtStart(3);
+        myLinkedList4.insertAtStart(6);
+        myLinkedList4.insertAtStart(1);
+        hasCycle(myLinkedList4.head);
+        hasCycle(makeCycle(myLinkedList4.head));
 
     }
 }
